@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<meta name="robots" content="noindex,nofollow">
+<meta http-equiv="Cache-Control" content="no-store">
+<title>Eaton Vital | Email confirmation</title>
+<script>
+  // Supabase may put a session token in the URL fragment after confirmation.
+  // This public static page NEVER stores, transmits or displays that token.
+  // Remove fragments and query strings from the address bar immediately.
+  (function () {
+    var hash = location.hash.slice(1), query=location.search.slice(1);
+    var p = new URLSearchParams(hash.replace(/^\//, ''));
+    var q = new URLSearchParams(query);
+    var hasToken = p.has('access_token');
+    var error = p.get('error_description') || p.get('error') || q.get('error_description') || q.get('error');
+    try { history.replaceState(null, document.title, location.pathname); } catch (e) {}
+    window.eatonVitalConfirmation = {confirmed:hasToken && !error,hasError:!!error};
+  }());
+</script>
+<link rel="stylesheet" href="style.css">
+<style>.confirm-panel{max-width:680px;margin:78px auto 94px;border:1px solid var(--border);border-radius:22px;padding:38px;background:var(--panel)}.confirm-panel h1{font-size:clamp(2rem,5vw,3rem);line-height:1.15;margin:12px 0}.confirm-panel p{color:var(--muted)}.confirm-panel a{color:var(--mint)}.steps{margin-top:28px;padding-left:22px}.steps li{margin-bottom:10px}.mark{color:var(--mint);font-size:2rem}.notice-error{color:#ffc1bd!important}@media(max-width:620px){.confirm-panel{margin:42px auto;padding:23px}}</style>
+</head>
+<body>
+<div class="site">
+<header class="mast"><div class="brand"><span class="symbol" aria-hidden="true">⌁</span><span>EATON <b>VITAL</b></span></div><a class="nav" href="index.html">Support home</a></header>
+<main class="confirm-panel">
+<div class="mark" aria-hidden="true">✓</div>
+<p class="eyebrow">SOCIAL CIRCLE · EMAIL</p>
+<h1 id="headline">Email confirmation</h1>
+<p id="message">You can now return to Eaton Vital and sign in to Social Circle. If sign-in fails, check that your email has been confirmed.</p>
+<ol class="steps"><li>Open <strong>Eaton Vital</strong> on your Android phone.</li><li>Select <strong>Social Circle</strong>.</li><li>Sign in using the email address and password you registered with.</li></ol>
+<p>Your workouts, meals, photos and GPS tracks stay on your phone. You do not need to move or import anything to complete email confirmation.</p>
+<p>If you need assistance, email <a href="mailto:jameseaton7@outlook.com">jameseaton7@outlook.com</a>.</p>
+<p><a href="privacy.html">Privacy policy</a> · <a href="delete-account.html">Account deletion</a></p>
+</main>
+<footer>© 2026 Eaton Vital · Developed by James Eaton · <a href="mailto:jameseaton7@outlook.com">jameseaton7@outlook.com</a></footer>
+</div>
+<script>
+  (function () {
+    var state=window.eatonVitalConfirmation||{};
+    var headline=document.getElementById('headline'),message=document.getElementById('message');
+    if(state.confirmed){
+      headline.textContent='Email confirmed';
+      message.textContent='Your email address has been confirmed. Return to Eaton Vital and sign in to Social Circle.';
+    } else if(state.hasError){
+      headline.textContent='Confirmation could not be completed';
+      message.textContent='Your confirmation link may have expired or already been used. Try signing in to Eaton Vital, or request a new confirmation email if needed.';
+      message.className='notice-error';
+    } else {
+      headline.textContent='Return to Eaton Vital';
+      message.textContent='If you have just confirmed your email, you can now open Eaton Vital and sign in. If sign-in fails, your confirmation may not yet be complete.';
+    }
+  }());
+</script>
+</body>
+</html>
